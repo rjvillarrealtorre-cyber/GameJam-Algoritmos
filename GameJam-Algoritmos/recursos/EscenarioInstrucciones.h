@@ -148,6 +148,7 @@ namespace Project86 {
 
 		void btnVolver_Click(Object^ sender, EventArgs^ e)
 		{
+			
 			this->Close();
 		}
 
