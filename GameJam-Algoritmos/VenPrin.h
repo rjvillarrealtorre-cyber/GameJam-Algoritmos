@@ -79,6 +79,8 @@ namespace GameJamAlgoritmos {
 			this->Name = L"VenPrin";
 			this->Text = L"VenPrin";
 			this->Load += gcnew System::EventHandler(this, &VenPrin::VenPrin_Load);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &VenPrin::VenPrin_KeyDown);
+			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &VenPrin::VenPrin_KeyUp);
 			this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &VenPrin::VenPrin_MouseClick);
 			this->ResumeLayout(false);
 
@@ -112,5 +114,37 @@ namespace GameJamAlgoritmos {
 			juego->manejarVelocidades(+1);
 		}
 	}
-	};
+	private: System::Void VenPrin_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+		case Keys::Right:
+			juego->getNave()->setTDerecha(true);
+			break;
+		case Keys::Left:
+			juego->getNave()->setTIzquierda(true);
+			break;
+		case Keys::Up:
+			juego->getNave()->setTArriba(true);
+			break;
+		case Keys::Down:
+			juego->getNave()->setTAbajo(true);
+			break;
+		}
+	}
+	private: System::Void VenPrin_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
+		switch (e->KeyCode) {
+		case Keys::Right:
+			juego->getNave()->setTDerecha(false);
+			break;
+		case Keys::Left:
+			juego->getNave()->setTIzquierda(false);
+			break;
+		case Keys::Up:
+			juego->getNave()->setTArriba(false);
+			break;
+		case Keys::Down:
+			juego->getNave()->setTAbajo(false);
+			break;
+		}
+	}
+};
 }

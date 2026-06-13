@@ -2,9 +2,11 @@
 #include "Nave.h"
 #include "Nivel.h"
 #include "Fuente.h"
+#include "PanelControl.h"
 
 ref class Juego {
 private:
+	PanelControl^ pc;
 	Bitmap^ manejoVel;
 	Fuente^ fuente;
 	Nave* nave;
@@ -19,6 +21,7 @@ public:
 		niveles = gcnew array<Nivel^>(1);
 		niveles[0] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl1.jpg"));
 		multiplicadorGlobal = 1;
+		pc = gcnew PanelControl();
 
 		nave = new Nave(30, 490, 30);
 	}
@@ -28,6 +31,7 @@ public:
 		for each (Nivel ^ n in niveles) delete n;
 		delete niveles;
 		delete fuente;
+		delete pc;
 	}
 
 	void dibujarMV(Graphics^ gr) {
@@ -63,8 +67,15 @@ public:
 		nave->mover();
 		nave->mostrar(gr);
 
+		//Panel
+		pc->mostrarPanel(gr, nave, fuente->getFuenteFinal(), niveles[nivelActual]->getContador());
+
 		//Otros
 		dibujarMV(gr);
 		dibujarMultiplicador(gr);
+
+		niveles[nivelActual]->aumentarContador();
 	}
+
+	Nave* getNave() { return nave; }
 };

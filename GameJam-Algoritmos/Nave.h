@@ -6,11 +6,17 @@ using namespace System::Drawing;
 
 class Nave : public Entidad {
 private:
+	bool tDerecha, tIzquierda, tArriba, tAbajo;
+	int numeroColisiones;
+	int vida, energia;
 	float angulo;
 public:
 	Nave(int px, int py, int dim) : Entidad(px, py, dim) {
 		aleatorizarVelocidad();
+		numeroColisiones = 0;
+		vida = energia = 100;
 		angulo = 0;
+		tDerecha = tIzquierda = tArriba = tAbajo = false;
 	}
 
 	void mostrar(Graphics^ gr) override {
@@ -67,14 +73,22 @@ public:
 
 	void mover() {
 		//if (determinarVictoriaDerrota()) return;
-		//General
-		x += dx;
-		y -= dy;
-		//Determinar si la nave regresa
-		if (x > 1024 || x < 0 || y > 576 || y + 10 * dimensiones / 4 < 0) {
-			x = xO;
-			y = yO;
-			aleatorizarVelocidad();
-		}
+		if (tDerecha) x += dx;
+		else if (tIzquierda) x -= dx;
+		if (tArriba) y -= dy;
+		else if (tAbajo) y += dy;
 	}
+
+	int getVida() { return vida; }
+	int getColisiones() { return numeroColisiones; }
+	int getEnergia() { return energia; }
+
+	void setVida(int i) { vida = i; }
+	void setEnergia(int i) { energia = i; }
+	void aumentarColisiones() { numeroColisiones++; }
+
+	void setTDerecha(bool d) { tDerecha = d; }
+	void setTIzquierda(bool d) { tIzquierda = d; }
+	void setTArriba(bool d) { tArriba = d; }
+	void setTAbajo(bool d) { tAbajo = d; }
 };
