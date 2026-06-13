@@ -10,6 +10,9 @@ private:
 	int numeroColisiones;
 	int vida, energia;
 	float angulo;
+
+	bool invulnerable;
+	int contadorInvulnerabilidad;
 public:
 	Nave(int px, int py, int dim) : Entidad(px, py, dim) {
 		aleatorizarVelocidad();
@@ -68,18 +71,19 @@ public:
 		gr->FillPolygon(Brushes::DarkGray, puntosCabeza);
 	}
 
-	bool determinarVictoriaDerrota() {
-		if (x + 22 * dimensiones / 4 >= 1000 && y < 50) return true;
-		return false;
-	}
-
 	void mover() override {
-		//if (determinarVictoriaDerrota()) return;
 		if (tDerecha) x += dx;
 		else if (tIzquierda) x -= dx;
 		if (tArriba) y -= dy;
 		else if (tAbajo) y += dy;
 	}
+
+	void setInvulnerable(bool p) { invulnerable = p; }
+	bool getInvulnerable() { return invulnerable; }
+
+	void aumentarContadorInvulnerabilidad() { contadorInvulnerabilidad++; }
+	void resetContadorInvulnerabilidad() { contadorInvulnerabilidad = 0; }
+	int getContadorInvulnerabilidad() { return contadorInvulnerabilidad; }
 
 	int getVida() { return vida; }
 	int getColisiones() { return numeroColisiones; }

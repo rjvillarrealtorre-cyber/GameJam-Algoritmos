@@ -9,6 +9,7 @@ public:
 		alto = dimensiones * 2;
 		ancho = dimensiones * 5;
 		if (py > 300) y *= -1;
+		if (px < 500) x *= -1;
 	}
 
 	bool desaparecera() {

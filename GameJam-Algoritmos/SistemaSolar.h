@@ -41,7 +41,6 @@ public:
 	}
 
 	void mostrar(Graphics^ gr) {
-
 		// Órbitas
 		for each (Planeta ^ p in planetas) {
 
@@ -58,7 +57,8 @@ public:
 			p->mostrar(gr);
 	}
 
-	void manejarSistemaSolar(Graphics^ gr, int multiplicador) {
+	void manejarSistemaSolar(Graphics^ gr, int multiplicador, bool caotico) {
+		if (caotico) return;
 		mover();
 		mostrar(gr);
 	}

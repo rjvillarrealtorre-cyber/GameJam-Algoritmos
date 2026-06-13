@@ -65,4 +65,7 @@ public:
 	int getMultiplicador() { return multiplicador; }
 	int getAncho() { return ancho; }
 	int getAlto() { return alto; }
+	int getDimensiones() { return dimensiones; }
+
+	virtual bool esCuerpoCaotico() { return false; }
 };

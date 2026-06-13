@@ -124,6 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cometa.h" />
+    <ClInclude Include="CuerpoCaotico.h" />
+    <ClInclude Include="CuerpoCaoticoSimple.h" />
     <ClInclude Include="Entidad.h" />
     <ClInclude Include="Fuente.h" />
     <ClInclude Include="Juego.h" />

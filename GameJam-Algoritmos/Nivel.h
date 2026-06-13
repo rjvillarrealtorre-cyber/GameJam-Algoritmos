@@ -3,6 +3,7 @@
 #include "Asteroide.h"
 #include "Cometa.h"
 #include "SistemaSolar.h"
+#include "CuerpoCaoticoSimple.h"
 
 using namespace System;
 using namespace System::Drawing;
@@ -13,6 +14,7 @@ private:
 	Bitmap^ fondo;
 	SistemaSolar^ ss;
 	List<Entidad^>^ cuerposC;
+	bool caotico;
 
 	int contador;
 	int contadorAsteroide;
@@ -20,14 +22,15 @@ private:
 	int contadorCometa;
 	int intervaloAparicionCometa;
 public:
-	Nivel(Bitmap^ f) {
+	Nivel(Bitmap^ f, bool caotico) {
+		this->caotico = caotico;
 		cuerposC = gcnew List<Entidad^>;
 		ss = gcnew SistemaSolar(500, 290);
 		contador = 0;
 		contadorAsteroide = 0;
-		intervaloAparicionAsteroide = 5 * CONVERSOR_CONT;
+		intervaloAparicionAsteroide = caotico ? 2 * CONVERSOR_CONT :  5 * CONVERSOR_CONT;
 		contadorCometa = 0;
-		intervaloAparicionCometa = 4 * CONVERSOR_CONT;
+		intervaloAparicionCometa = caotico ? 1 * CONVERSOR_CONT : 4 * CONVERSOR_CONT;
 		fondo = f;
 	}
 
@@ -41,19 +44,25 @@ public:
 		if (contadorAsteroide >= intervaloAparicionAsteroide) {
 			Random^ rx = gcnew Random();
 			Random^ ry = gcnew Random();
-			cuerposC->Add(gcnew Asteroide(rx->Next(1000, 1025), ry->Next(1, 576), 20, multiplicadorGlobal));
+			int px = caotico ? rx->Next(1, 1025) : rx->Next(1000, 1025);
+			int py = ry->Next(1, 576);
+			cuerposC->Add(gcnew Asteroide(px, py, 20, multiplicadorGlobal));
 			contadorAsteroide = 0;
 		}
 		//Agregar cometas
 		if (contadorCometa >= intervaloAparicionCometa) {
 			Random^ rx = gcnew Random();
 			Random^ ry = gcnew Random();
-			cuerposC->Add(gcnew Cometa(rx->Next(1000, 1025), ry->Next(1, 576), 20, multiplicadorGlobal));
+			int px = caotico ? rx->Next(1, 1025) : rx->Next(1000, 1025);
+			int py = ry->Next(1, 576);
+			cuerposC->Add(gcnew Cometa(px, py, 20, multiplicadorGlobal));
 			contadorCometa = 0;
 		}
 
 		//Eliminar cuerpos celetes
 		for (int i = cuerposC->Count - 1; i >= 0; i--) {
+			if (cuerposC[i]->esCuerpoCaotico()) continue;
+
 			if (cuerposC[i]->getX() < 0 || cuerposC[i]->getY() > 576) {
 				delete cuerposC[i];
 				cuerposC->RemoveAt(i);
@@ -65,11 +74,12 @@ public:
 			cc->mover();
 			cc->mostrar(gr);
 		}
+
 	}
 
 	void manejarEntidades(Graphics^ gr, int multiplicadorGlobal) {
 		manejarCC(gr, multiplicadorGlobal);
-		ss->manejarSistemaSolar(gr, multiplicadorGlobal);
+		ss->manejarSistemaSolar(gr, multiplicadorGlobal, caotico);
 	}
 
 	void aumentarContadorAsteroide() { contadorAsteroide++; }
@@ -77,6 +87,8 @@ public:
 	void aumentarContador() { contador++; }
 	int getContador() { return contador; }
 	int getContadorAsteroide() { return contadorAsteroide; }
+	void setCaotico(bool p) { caotico = p; }
+	bool getCaotico() { return caotico; }
 
 	Bitmap^ getFondo() { return fondo; }
 	List<Entidad^>^ getCC() { return cuerposC; }
