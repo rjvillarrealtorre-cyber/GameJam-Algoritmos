@@ -6,7 +6,7 @@ private:
 	Nave* nave;
 public:
 	Juego() {
-		nave = new Nave(30, 490, 7, 10, 30);
+		nave = new Nave(30, 490, 30);
 	}
 
 	~Juego() {
@@ -18,6 +18,7 @@ public:
 		gr->Clear(Color::Black);
 
 		//Nave
+		nave->mover();
 		nave->mostrar(gr);
 	}
 };

@@ -8,7 +8,8 @@ class Nave : public Entidad {
 private:
 	float angulo;
 public:
-	Nave(int px, int py, int dX, int dY, int dim) : Entidad(px, py, dX, dY, dim) {
+	Nave(int px, int py, int dim) : Entidad(px, py, dim) {
+		aleatorizarVelocidad();
 		angulo = 0;
 	}
 
@@ -59,7 +60,21 @@ public:
 		gr->FillPolygon(Brushes::DarkGray, puntosCabeza);
 	}
 
-	void mover() {
+	bool determinarVictoriaDerrota() {
+		if (x + 22 * dimensiones / 4 >= 1000 && y < 50) return true;
+		return false;
+	}
 
+	void mover() {
+		if (determinarVictoriaDerrota()) return;
+		//General
+		x += dx;
+		y -= dy;
+		//Determinar si la nave regresa
+		if (x > 1024 || x < 0 || y > 576 || y + 10 * dimensiones / 4 < 0) {
+			x = xO;
+			y = yO;
+			aleatorizarVelocidad();
+		}
 	}
 };

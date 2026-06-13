@@ -5,14 +5,24 @@ using namespace System;
 
 class Entidad {
 protected:
+	float multiplicador;
+	int xO, yO;
 	int x, y;
 	int dx, dy;
 	int dimensiones;
 public:
-	Entidad(int px, int py, int dX, int dY, int dim) {
+	Entidad(int px, int py, int dim) {
 		x = px; y = py;
-		dx = dX; dy = dY;
+		xO = x; yO = y;
 		dimensiones = dim;
+		multiplicador = 1;
+	}
+
+	void aleatorizarVelocidad() {
+		Random^ rand1 = gcnew Random();
+		dx = rand1->Next(1, 10);
+		Random^ rand2 = gcnew Random();
+		dy = rand2->Next(1, 10);
 	}
 
 	virtual void mostrar(Graphics^ gr) = 0;
