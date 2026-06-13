@@ -17,6 +17,8 @@ public:
 		vida = energia = 100;
 		angulo = 0;
 		tDerecha = tIzquierda = tArriba = tAbajo = false;
+		ancho = 24 * dimensiones / 4;
+		alto = 9 * dimensiones / 4;
 	}
 
 	void mostrar(Graphics^ gr) override {

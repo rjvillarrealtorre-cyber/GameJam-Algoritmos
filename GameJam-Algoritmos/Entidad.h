@@ -11,6 +11,8 @@ protected:
 	float dx, dy;
 	float dxO, dyO;
 	int dimensiones;
+
+	int ancho, alto;
 public:
 	Entidad(int px, int py, int dim) {
 		x = px; y = py;
@@ -42,6 +44,10 @@ public:
 		dy = dyO * multiplicador;
 	}
 
+	Rectangle getBounds() { //Para colisiones
+		return Rectangle(x, y, ancho, alto);
+	}
+
 	virtual void mover() {}
 
 	virtual void mostrar(Graphics^ gr) = 0;
@@ -57,4 +63,6 @@ public:
 	int getDx() { return dx; }
 	int getDy() { return dy; }
 	int getMultiplicador() { return multiplicador; }
+	int getAncho() { return ancho; }
+	int getAlto() { return alto; }
 };

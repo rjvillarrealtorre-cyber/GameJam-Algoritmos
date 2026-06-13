@@ -33,6 +33,8 @@ public:
 
 		anguloRotacion = 0;
 		velocidadRotacion = 5;
+		ancho = dimensiones * 2;
+		alto = dimensiones * 2;
 	}
 
 	void rotar() {

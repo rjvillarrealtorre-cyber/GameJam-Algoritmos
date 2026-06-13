@@ -6,7 +6,8 @@ private:
 public:
 	Cometa(int px, int py, int dim, int multi) : Entidad(px, py, dim, multi) {
 		aleatorizarVelocidad();
-
+		alto = dimensiones * 2;
+		ancho = dimensiones * 5;
 		if (py > 300) y *= -1;
 	}
 

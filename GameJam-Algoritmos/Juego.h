@@ -76,6 +76,22 @@ public:
 			835 + centrar - 6, 500);
 	}
 
+	void manejarColisiones() {
+		for each(Entidad ^ cc in niveles[nivelActual]->getCC()) {
+			if (!verificarColisiones(nave, cc)) continue;
+
+			nave->setVida(nave->getVida() - 10);
+		}
+
+		for (int i = niveles[nivelActual]->getCC()->Count - 1; i >= 0; i--) {
+			if (!verificarColisiones(nave, niveles[nivelActual]->getCC()[i])) return;
+
+			nave->setVida(nave->getVida() - 10);
+			delete niveles[nivelActual]->getCC()[i];
+			niveles[nivelActual]->getCC()->RemoveAt(i);
+		}
+	}
+
 	void manejarBuclePrincipal(Graphics^ gr) {
 		//Borrar (final)
 		gr->DrawImage(niveles[nivelActual]->getFondo(), 0, 0, 1024, 576);
@@ -93,6 +109,7 @@ public:
 		//Otros
 		dibujarMV(gr);
 		dibujarMultiplicador(gr);
+		manejarColisiones();
 
 		//Contadores
 		niveles[nivelActual]->aumentarContador();

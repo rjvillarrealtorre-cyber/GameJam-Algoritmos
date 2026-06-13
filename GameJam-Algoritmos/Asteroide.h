@@ -6,6 +6,8 @@ private:
 public:
 	Asteroide(int px, int py, int dim, int multi) : Entidad(px, py, dim, multi) {
 		aleatorizarVelocidad();
+		ancho = 5 * dimensiones / 4;
+		alto = 7 * dimensiones / 4;
 		if (py > 300) dy *= -1;
 	}
 
