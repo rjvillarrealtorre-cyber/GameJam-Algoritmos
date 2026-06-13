@@ -118,7 +118,7 @@ namespace Project86 {
 			Button^ btnNivel1 = crearBoton("NIVEL 1 - SISTEMA SOLAR", 357, 160, cyan);
 			Button^ btnNivel2 = crearBoton("NIVEL 2 - NEBULOSA DEL KHAOS", 357, 225, morado);
 			Button^ btnInstrucciones = crearBoton("INSTRUCCIONES", 357, 290, naranja);
-			Button^ btnCreditos = crearBoton("CREADORES", 357, 355, verde);
+			Button^ btnCreditos = crearBoton("CREDITOS", 357, 355, verde);
 			Button^ btnSalir = crearBoton("SALIR", 357, 420, rojo);
 
 			btnNivel1->Click += gcnew EventHandler(this, &EscenarioMenu1::btnNivel1_Click);
