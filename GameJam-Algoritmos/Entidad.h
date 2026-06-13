@@ -3,7 +3,7 @@
 using namespace System::Drawing;
 using namespace System;
 
-class Entidad {
+ref class Entidad {
 protected:
 	float multiplicador;
 	int xO, yO;
@@ -19,6 +19,13 @@ public:
 		multiplicador = 1;
 	}
 
+	Entidad(int px, int py, int dim, int multi) {
+		x = px; y = py;
+		xO = x; yO = y;
+		dimensiones = dim;
+		multiplicador = multi;
+	}
+
 	void aleatorizarVelocidad() {
 		Random^ rand1 = gcnew Random();
 		dxO = rand1->Next(3, 13);
@@ -29,11 +36,13 @@ public:
 		dy = dyO * multiplicador;
 	}
 
-	void cambioVelocidad(float mul) {
+	virtual void cambioVelocidad(float mul) {
 		multiplicador = mul;
 		dx = dxO * multiplicador;
 		dy = dyO * multiplicador;
 	}
+
+	virtual void mover() {}
 
 	virtual void mostrar(Graphics^ gr) = 0;
 

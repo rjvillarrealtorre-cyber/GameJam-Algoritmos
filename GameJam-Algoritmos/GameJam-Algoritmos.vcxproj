@@ -123,12 +123,16 @@
     <ClCompile Include="VenPrin.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cometa.h" />
     <ClInclude Include="Entidad.h" />
     <ClInclude Include="Fuente.h" />
     <ClInclude Include="Juego.h" />
     <ClInclude Include="Nave.h" />
     <ClInclude Include="Nivel.h" />
     <ClInclude Include="PanelControl.h" />
+    <ClInclude Include="Planeta.h" />
+    <ClInclude Include="SistemaSolar.h" />
+    <ClInclude Include="Utilidades.h" />
     <ClInclude Include="VenPrin.h">
       <FileType>CppForm</FileType>
     </ClInclude>

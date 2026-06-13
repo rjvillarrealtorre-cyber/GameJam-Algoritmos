@@ -1,18 +1,21 @@
 #pragma once
 #include "Entidad.h"
 
-class Asteroide : public Entidad {
+ref class Asteroide : public Entidad {
 private:
 public:
-	Asteroide(int px, int py, int dim) : Entidad(px, py, dim) {}
+	Asteroide(int px, int py, int dim, int multi) : Entidad(px, py, dim, multi) {
+		aleatorizarVelocidad();
+		if (py > 300) dy *= -1;
+	}
 
 	bool desaparecera() {
 		if (x < 0 || y < 0) return true;
 		return false;
 	}
 
-	void mover() {
-		x += dx;
+	void mover() override {
+		x -= dx;
 		y += dy;
 	}
 
@@ -30,7 +33,7 @@ public:
 		puntosAsteroide[8] = Point(x - dimensiones / 4, y + dimensiones / 2);
 		puntosAsteroide[9] = Point(x + dimensiones / 8, y + dimensiones / 8);
 
-		gr->FillPolygon(Brushes::SaddleBrown, puntosAsteroide);
+		gr->FillPolygon(Brushes::Silver, puntosAsteroide);
 
 		// Cráteres
 		gr->FillEllipse(Brushes::DimGray, x + dimensiones / 4,

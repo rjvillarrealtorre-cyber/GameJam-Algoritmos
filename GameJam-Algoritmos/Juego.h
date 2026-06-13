@@ -9,21 +9,30 @@ private:
 	PanelControl^ pc;
 	Bitmap^ manejoVel;
 	Fuente^ fuente;
-	Nave* nave;
+	Nave^ nave;
 	array<Nivel^>^ niveles;
 	int nivelActual;
 
 	float multiplicadorGlobal;
 public:
 	Juego() {
+		nivelActual = 0;
 		fuente = gcnew Fuente();
 		manejoVel = gcnew Bitmap("recursos\\manejoVelocidad.png");
-		niveles = gcnew array<Nivel^>(1);
-		niveles[0] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl1.jpg"));
 		multiplicadorGlobal = 1;
 		pc = gcnew PanelControl();
 
-		nave = new Nave(30, 490, 30);
+		nave = gcnew Nave(30, 490, 30);
+
+		// ---------- Inicializar nivel ---------
+		//Nivel 1
+		niveles = gcnew array<Nivel^>(1);
+		niveles[0] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl1.jpg"));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 21,  70, 4.0f, 5, Brushes::Blue, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 27, 115, 3.0f, 4, Brushes::Khaki, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 35, 160, 2.3f, 3, Brushes::DeepSkyBlue, TIERRA));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 31, 205, 1.8f, 2, Brushes::IndianRed, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 58, 260, 1.2f, 1, Brushes::Beige, SATURNO));
 	}
 
 	~Juego() {
@@ -41,7 +50,15 @@ public:
 	void manejarVelocidades(float mod) {
 		multiplicadorGlobal += mod;
 		if (multiplicadorGlobal <= 0.5) multiplicadorGlobal = 0.5;
+
+		//Nave
 		nave->cambioVelocidad(multiplicadorGlobal);
+		//CuerposC (asterioides y cometas)
+		for each (Entidad ^ cc in niveles[nivelActual]->getCC())
+			cc->cambioVelocidad(multiplicadorGlobal);
+		//Planetas
+		for each (Planeta ^ p in niveles[nivelActual]->getSistemaSolar()->getPlanetas())
+			p->cambioVelocidad(multiplicadorGlobal);
 	}
 
 	void dibujarMultiplicador(Graphics^ gr) {
@@ -67,6 +84,9 @@ public:
 		nave->mover();
 		nave->mostrar(gr);
 
+		//Entidades
+		niveles[nivelActual]->manejarEntidades(gr, multiplicadorGlobal);
+
 		//Panel
 		pc->mostrarPanel(gr, nave, fuente->getFuenteFinal(), niveles[nivelActual]->getContador());
 
@@ -74,8 +94,11 @@ public:
 		dibujarMV(gr);
 		dibujarMultiplicador(gr);
 
+		//Contadores
 		niveles[nivelActual]->aumentarContador();
+		niveles[nivelActual]->aumentarContadorAsteroide();
+		niveles[nivelActual]->aumentarContadorCometa();
 	}
 
-	Nave* getNave() { return nave; }
+	Nave^ getNave() { return nave; }
 };

@@ -4,7 +4,7 @@
 using namespace System;
 using namespace System::Drawing;
 
-class Nave : public Entidad {
+ref class Nave : public Entidad {
 private:
 	bool tDerecha, tIzquierda, tArriba, tAbajo;
 	int numeroColisiones;
@@ -71,7 +71,7 @@ public:
 		return false;
 	}
 
-	void mover() {
+	void mover() override {
 		//if (determinarVictoriaDerrota()) return;
 		if (tDerecha) x += dx;
 		else if (tIzquierda) x -= dx;

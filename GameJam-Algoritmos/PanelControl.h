@@ -1,4 +1,5 @@
 #pragma once
+#include "Utilidades.h"
 
 using namespace System::Drawing;
 
@@ -14,14 +15,12 @@ public:
 		delete hud;
 	}
 
-	void mostrarPanel(Graphics^ gr, Nave* nave, Font^ fuente, int contadorNivel) {
+	void mostrarPanel(Graphics^ gr, Nave^ nave, Font^ fuente, int contadorNivel) {
 		gr->DrawImage(hud, 0, 0, 175, 130);
-
-		const int TIEMPO_SLEEP = 75;
 		int espaciado = 25;
 
-		int segundos = static_cast<int>(((TIEMPO_SLEEP * 1.0 / 1000) * contadorNivel)) % 60;
-		int minutos = ((TIEMPO_SLEEP * 1.0 / 1000) * contadorNivel) / 60;
+		int segundos = static_cast<int>((CONVERSOR_SEG * contadorNivel)) % 60;
+		int minutos = (CONVERSOR_SEG * contadorNivel) / 60;
 		String^ segMostrar = segundos < 10 ? "0" + segundos : "" + segundos;
 		String^ minMostrar = minutos < 10 ? "0" + minutos : "" + minutos;
 
