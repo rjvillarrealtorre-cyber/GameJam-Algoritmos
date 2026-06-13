@@ -1,5 +1,5 @@
 #pragma once
-
+#include "EscenarioInstrucciones.h"
 namespace Project86 {
 
 	using namespace System;
@@ -185,6 +185,12 @@ namespace Project86 {
 
 		void btnVolver_Click(Object^ sender, EventArgs^ e)
 		{
+			this->Hide();
+
+EscenarioInstrucciones^ frm =
+	gcnew EscenarioInstrucciones();
+
+frm->ShowDialog();
 			this->Close();
 		}
 
