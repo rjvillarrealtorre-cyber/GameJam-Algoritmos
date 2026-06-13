@@ -49,14 +49,14 @@ namespace Project86 {
 				(cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(1280, 720);
+			this->pictureBox1->Size = System::Drawing::Size(1024, 576);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->ClientSize = System::Drawing::Size(1024, 576);
 			this->Controls->Add(this->pictureBox1);
 			this->Name = L"EscenarioCreditos";
 			this->Text = L"Creditos";
@@ -99,34 +99,34 @@ namespace Project86 {
 			Pen^ cyan = gcnew Pen(Color::FromArgb(0, 245, 255), 2);
 			Pen^ morado = gcnew Pen(Color::FromArgb(190, 80, 255), 2);
 
-			g->DrawLine(cyan, 355, 70, 430, 70);
-			g->DrawLine(cyan, 850, 70, 925, 70);
-			g->DrawLine(cyan, 430, 70, 445, 58);
-			g->DrawLine(cyan, 850, 70, 835, 58);
+			g->DrawLine(cyan, 280, 55, 345, 55);
+			g->DrawLine(cyan, 680, 55, 745, 55);
+			g->DrawLine(cyan, 345, 55, 358, 45);
+			g->DrawLine(cyan, 680, 55, 667, 45);
 
-			g->DrawLine(cyan, 380, 220, 500, 220);
-			g->DrawLine(cyan, 780, 220, 900, 220);
+			g->DrawLine(cyan, 300, 175, 410, 175);
+			g->DrawLine(cyan, 615, 175, 725, 175);
 
-			array<int>^ y = { 285, 340, 395, 450 };
+			array<int>^ y = { 225, 270, 315, 360 };
 
 			for each (int pos in y)
 			{
-				g->DrawLine(cyan, 495, pos, 535, pos);
-				g->DrawLine(cyan, 495, pos, 515, pos + 12);
-				g->FillEllipse(Brushes::Cyan, 490, pos - 4, 8, 8);
+				g->DrawLine(cyan, 390, pos, 430, pos);
+				g->DrawLine(cyan, 390, pos, 408, pos + 10);
+				g->FillEllipse(Brushes::Cyan, 386, pos - 4, 8, 8);
 
-				g->DrawLine(cyan, 745, pos, 785, pos);
-				g->DrawLine(cyan, 785, pos, 765, pos + 12);
-				g->FillEllipse(Brushes::Cyan, 782, pos - 4, 8, 8);
+				g->DrawLine(cyan, 595, pos, 635, pos);
+				g->DrawLine(cyan, 635, pos, 617, pos + 10);
+				g->FillEllipse(Brushes::Cyan, 631, pos - 4, 8, 8);
 			}
 
-			g->DrawLine(morado, 355, 535, 450, 535);
-			g->DrawLine(morado, 830, 535, 925, 535);
+			g->DrawLine(morado, 285, 420, 380, 420);
+			g->DrawLine(morado, 645, 420, 740, 420);
 
-			g->DrawLine(morado, 420, 575, 510, 575);
-			g->DrawLine(morado, 770, 575, 860, 575);
-			g->FillEllipse(Brushes::Violet, 415, 571, 8, 8);
-			g->FillEllipse(Brushes::Violet, 855, 571, 8, 8);
+			g->DrawLine(morado, 330, 455, 420, 455);
+			g->DrawLine(morado, 605, 455, 695, 455);
+			g->FillEllipse(Brushes::Violet, 326, 451, 8, 8);
+			g->FillEllipse(Brushes::Violet, 691, 451, 8, 8);
 
 			delete cyan;
 			delete morado;
@@ -140,13 +140,13 @@ namespace Project86 {
 			Color moradoNeon = Color::FromArgb(190, 80, 255);
 			Color azulOscuro = Color::FromArgb(5, 10, 25);
 
-			Label^ titulo = crearLabel("CREDITOS", 0, 35, 1280, 75, 38, azulNeon, true);
+			Label^ titulo = crearLabel("CREDITOS", 0, 25, 1024, 60, 30, azulNeon, true);
 			pictureBox1->Controls->Add(titulo);
 
-			Label^ juego = crearLabel("POLINAVIS - VIAJE INTERESTELAR", 0, 105, 1280, 45, 18, Color::FromArgb(110, 140, 255), true);
+			Label^ juego = crearLabel("POLINAVIS - VIAJE INTERESTELAR", 0, 78, 1024, 35, 15, Color::FromArgb(110, 140, 255), true);
 			pictureBox1->Controls->Add(juego);
 
-			Label^ dev = crearLabel("DESARROLLADORES:", 0, 195, 1280, 45, 22, naranjaNeon, true);
+			Label^ dev = crearLabel("DESARROLLADORES:", 0, 155, 1024, 40, 18, naranjaNeon, true);
 			pictureBox1->Controls->Add(dev);
 
 			Label^ nombres = crearLabel(
@@ -154,26 +154,26 @@ namespace Project86 {
 				"LUIGGI PEREZ CABEZAS\n\n"
 				"SUNMI NATALI\n\n"
 				"DIEGO REQUENA",
-				340, 250, 600, 220, 16, blancoFrio, true
+				262, 205, 500, 175, 13, blancoFrio, true
 			);
 			pictureBox1->Controls->Add(nombres);
 
-			Label^ curso = crearLabel("Curso: Algoritmos  |  Game Jam 2026-10", 0, 510, 1280, 35, 14, Color::LightCyan, true);
+			Label^ curso = crearLabel("Curso: Algoritmos  |  Game Jam 2026-10", 0, 405, 1024, 30, 12, Color::LightCyan, true);
 			pictureBox1->Controls->Add(curso);
 
-			Label^ gracias = crearLabel("Gracias por jugar", 0, 550, 1280, 35, 17, moradoNeon, true);
+			Label^ gracias = crearLabel("Gracias por jugar", 0, 440, 1024, 30, 14, moradoNeon, true);
 			pictureBox1->Controls->Add(gracias);
 
 			Button^ btnVolver = gcnew Button();
 			btnVolver->Text = "VOLVER AL MENU";
-			btnVolver->Size = Drawing::Size(210, 50);
-			btnVolver->Location = Point(535, 620);
+			btnVolver->Size = Drawing::Size(180, 42);
+			btnVolver->Location = Point(422, 495);
 			btnVolver->BackColor = azulOscuro;
 			btnVolver->ForeColor = azulNeon;
 			btnVolver->FlatStyle = FlatStyle::Flat;
 			btnVolver->FlatAppearance->BorderColor = azulNeon;
 			btnVolver->FlatAppearance->BorderSize = 2;
-			btnVolver->Font = gcnew Drawing::Font("Segoe UI", 11, FontStyle::Bold);
+			btnVolver->Font = gcnew Drawing::Font("Segoe UI", 10, FontStyle::Bold);
 
 			btnVolver->Click += gcnew EventHandler(this, &EscenarioCreditos::btnVolver_Click);
 			btnVolver->MouseEnter += gcnew EventHandler(this, &EscenarioCreditos::btnVolver_MouseEnter);
@@ -185,8 +185,6 @@ namespace Project86 {
 
 		void btnVolver_Click(Object^ sender, EventArgs^ e)
 		{
-			
-
 			this->Close();
 		}
 
