@@ -1,12 +1,14 @@
 #pragma once
 #include "EscenarioInstrucciones.h"
 #include "EscenarioCreditos.h"
+
 namespace Project86 {
 
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Windows::Forms;
 	using namespace System::Drawing;
+	using namespace System::Drawing::Drawing2D;
 
 	public ref class EscenarioMenu1 : public System::Windows::Forms::Form
 	{
@@ -14,7 +16,11 @@ namespace Project86 {
 		EscenarioMenu1(void)
 		{
 			InitializeComponent();
+
+			pictureBox1->Paint += gcnew PaintEventHandler(this, &EscenarioMenu1::dibujarNeon);
+
 			crearMenu();
+			pictureBox1->Invalidate();
 		}
 
 	protected:
@@ -45,14 +51,14 @@ namespace Project86 {
 				(cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(1280, 720);
+			this->pictureBox1->Size = System::Drawing::Size(1024, 576);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1280, 720);
+			this->ClientSize = System::Drawing::Size(1024, 576);
 			this->Controls->Add(this->pictureBox1);
 			this->Name = L"EscenarioMenu1";
 			this->Text = L"Menu Principal";
@@ -85,19 +91,63 @@ namespace Project86 {
 		{
 			Button^ btn = gcnew Button();
 			btn->Text = texto;
-			btn->Size = Drawing::Size(360, 58);
+			btn->Size = Drawing::Size(310, 48);
 			btn->Location = Point(x, y);
 			btn->BackColor = Color::FromArgb(5, 10, 25);
 			btn->ForeColor = Color::White;
 			btn->FlatStyle = FlatStyle::Flat;
 			btn->FlatAppearance->BorderColor = borde;
 			btn->FlatAppearance->BorderSize = 2;
-			btn->Font = gcnew Drawing::Font("Segoe UI", 15, FontStyle::Bold);
+			btn->Font = gcnew Drawing::Font("Segoe UI", 12, FontStyle::Bold);
 
 			btn->MouseEnter += gcnew EventHandler(this, &EscenarioMenu1::btn_MouseEnter);
 			btn->MouseLeave += gcnew EventHandler(this, &EscenarioMenu1::btn_MouseLeave);
 
 			return btn;
+		}
+
+		void dibujarNeon(Object^ sender, PaintEventArgs^ e)
+		{
+			Graphics^ g = e->Graphics;
+			g->SmoothingMode = SmoothingMode::AntiAlias;
+
+			Pen^ cyan = gcnew Pen(Color::FromArgb(0, 245, 255), 2);
+			Pen^ morado = gcnew Pen(Color::FromArgb(170, 90, 255), 2);
+
+			g->DrawLine(cyan, 270, 78, 370, 78);
+			g->DrawLine(cyan, 655, 78, 755, 78);
+			g->DrawLine(cyan, 370, 78, 385, 66);
+			g->DrawLine(cyan, 655, 78, 640, 66);
+
+			g->FillEllipse(Brushes::Cyan, 265, 74, 8, 8);
+			g->FillEllipse(Brushes::Cyan, 752, 74, 8, 8);
+
+			g->DrawLine(morado, 400, 135, 470, 135);
+			g->DrawLine(morado, 555, 135, 625, 135);
+			g->FillEllipse(Brushes::Violet, 395, 131, 8, 8);
+			g->FillEllipse(Brushes::Violet, 622, 131, 8, 8);
+
+			g->DrawLine(cyan, 295, 505, 420, 505);
+			g->DrawLine(morado, 605, 505, 730, 505);
+			g->DrawLine(cyan, 420, 505, 445, 518);
+			g->DrawLine(morado, 605, 505, 580, 518);
+
+			delete cyan;
+			delete morado;
+
+			
+		}
+
+		void dibujarDecoracionBoton(Graphics^ g, int x, int y, Pen^ p)
+		{
+			g->DrawLine(p, x, y, x + 25, y);
+			g->DrawLine(p, x, y, x + 15, y + 10);
+
+			g->DrawLine(p, x + 335, y, x + 360, y);
+			g->DrawLine(p, x + 360, y, x + 345, y + 10);
+
+			g->FillEllipse(Brushes::Cyan, x - 5, y - 4, 8, 8);
+			g->FillEllipse(Brushes::Cyan, x + 360, y - 4, 8, 8);
 		}
 
 		void crearMenu()
@@ -108,17 +158,17 @@ namespace Project86 {
 			Color verde = Color::FromArgb(80, 255, 180);
 			Color rojo = Color::FromArgb(255, 70, 100);
 
-			Label^ titulo = crearLabel("POLINAVIS", 0, 45, 1280, 80, 44, cyan);
+			Label^ titulo = crearLabel("POLINAVIS", 0, 32, 1024, 65, 34, cyan);
 			pictureBox1->Controls->Add(titulo);
 
-			Label^ subtitulo = crearLabel("VIAJE INTERESTELAR", 0, 115, 1280, 45, 20, Color::FromArgb(150, 120, 255));
+			Label^ subtitulo = crearLabel(">|< MENU >|<", 0, 88, 1024, 35, 16, Color::FromArgb(150, 120, 255));
 			pictureBox1->Controls->Add(subtitulo);
 
-			Button^ btnNivel1 = crearBoton("NIVEL 1 - SISTEMA SOLAR", 460, 215, cyan);
-			Button^ btnNivel2 = crearBoton("NIVEL 2 - NEBULOSA DEL KHAOS", 460, 295, morado);
-			Button^ btnInstrucciones = crearBoton("INSTRUCCIONES", 460, 375, naranja);
-			Button^ btnCreditos = crearBoton("CREADORES", 460, 455, verde);
-			Button^ btnSalir = crearBoton("SALIR", 460, 535, rojo);
+			Button^ btnNivel1 = crearBoton("NIVEL 1 - SISTEMA SOLAR", 357, 160, cyan);
+			Button^ btnNivel2 = crearBoton("NIVEL 2 - NEBULOSA DEL KHAOS", 357, 225, morado);
+			Button^ btnInstrucciones = crearBoton("INSTRUCCIONES", 357, 290, naranja);
+			Button^ btnCreditos = crearBoton("CREDITOS", 357, 355, verde);
+			Button^ btnSalir = crearBoton("SALIR", 357, 420, rojo);
 
 			btnNivel1->Click += gcnew EventHandler(this, &EscenarioMenu1::btnNivel1_Click);
 			btnNivel2->Click += gcnew EventHandler(this, &EscenarioMenu1::btnNivel2_Click);
@@ -154,6 +204,7 @@ namespace Project86 {
 			EscenarioCreditos^ frm = gcnew EscenarioCreditos();
 			frm->ShowDialog();
 		}
+
 		void btnSalir_Click(Object^ sender, EventArgs^ e)
 		{
 			Application::Exit();
