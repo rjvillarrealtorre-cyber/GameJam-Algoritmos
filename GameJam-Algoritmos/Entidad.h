@@ -9,6 +9,7 @@ protected:
 	int xO, yO;
 	int x, y;
 	float dx, dy;
+	float dxO, dyO;
 	int dimensiones;
 public:
 	Entidad(int px, int py, int dim) {
@@ -20,15 +21,18 @@ public:
 
 	void aleatorizarVelocidad() {
 		Random^ rand1 = gcnew Random();
-		dx = rand1->Next(3, 13) * multiplicador;
+		dxO = rand1->Next(3, 13);
 		Random^ rand2 = gcnew Random();
-		dy = rand2->Next(1, 10) * multiplicador;
+		dyO = rand2->Next(1, 10);
+
+		dx = dxO * multiplicador;
+		dy = dyO * multiplicador;
 	}
 
 	void cambioVelocidad(float mul) {
 		multiplicador = mul;
-		dx *= multiplicador;
-		dy *= multiplicador;
+		dx = dxO * multiplicador;
+		dy = dyO * multiplicador;
 	}
 
 	virtual void mostrar(Graphics^ gr) = 0;

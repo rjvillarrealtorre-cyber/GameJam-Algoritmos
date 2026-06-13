@@ -40,6 +40,21 @@ public:
 		nave->cambioVelocidad(multiplicadorGlobal);
 	}
 
+	void dibujarMultiplicador(Graphics^ gr) {
+		int anchoTexto = 10;
+		if (multiplicadorGlobal != Math::Floor(multiplicadorGlobal)
+			|| multiplicadorGlobal >= 10)
+			anchoTexto = 25;
+		else if (multiplicadorGlobal >= 10 && 
+			multiplicadorGlobal != Math::Floor(multiplicadorGlobal))
+			anchoTexto = 35;
+
+		String^ tt = multiplicadorGlobal + "";
+		short centrar = (70 - anchoTexto) / 2;
+		gr->DrawString(tt, fuente->getFuenteFinal(), Brushes::Black, 
+			835 + centrar - 6, 500);
+	}
+
 	void manejarBuclePrincipal(Graphics^ gr) {
 		//Borrar (final)
 		gr->DrawImage(niveles[nivelActual]->getFondo(), 0, 0, 1024, 576);
@@ -50,7 +65,6 @@ public:
 
 		//Otros
 		dibujarMV(gr);
-		String^ tt = multiplicadorGlobal + "";
-		gr->DrawString(tt, fuente->getFuenteFinal(), Brushes::Black, 860.0f, 500.0f);
+		dibujarMultiplicador(gr);
 	}
 };

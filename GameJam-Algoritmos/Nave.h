@@ -66,7 +66,7 @@ public:
 	}
 
 	void mover() {
-		if (determinarVictoriaDerrota()) return;
+		//if (determinarVictoriaDerrota()) return;
 		//General
 		x += dx;
 		y -= dy;
