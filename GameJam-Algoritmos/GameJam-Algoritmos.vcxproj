@@ -124,6 +124,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entidad.h" />
+    <ClInclude Include="Fuente.h" />
     <ClInclude Include="Juego.h" />
     <ClInclude Include="Nave.h" />
     <ClInclude Include="Nivel.h" />

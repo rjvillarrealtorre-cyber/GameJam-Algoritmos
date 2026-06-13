@@ -79,6 +79,7 @@ namespace GameJamAlgoritmos {
 			this->Name = L"VenPrin";
 			this->Text = L"VenPrin";
 			this->Load += gcnew System::EventHandler(this, &VenPrin::VenPrin_Load);
+			this->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &VenPrin::VenPrin_MouseClick);
 			this->ResumeLayout(false);
 
 		}
@@ -89,6 +90,27 @@ namespace GameJamAlgoritmos {
 		juego->manejarBuclePrincipal(buffer->Graphics);
 		
 		buffer->Render();
+	}
+	private: System::Void VenPrin_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		Point p(e->X, e->Y);
+
+		Rectangle subsDotFive(748, 480, 820 - 748, 510 - 480);
+		Rectangle subsOne(748, 520, 820 - 748, 554 - 520);
+		Rectangle addDotFive(930, 480, 1000 - 930, 510 - 480);
+		Rectangle addOne(930, 520, 1000 - 930, 560 - 520);
+
+		if (subsDotFive.Contains(p)) {
+			juego->manejarVelocidades(-0.5);
+		}
+		else if (subsOne.Contains(p)) {
+			juego->manejarVelocidades(-1);
+		}
+		else if (addDotFive.Contains(p)) {
+			juego->manejarVelocidades(+0.5);
+		}
+		else if (addOne.Contains(p)) {
+			juego->manejarVelocidades(+1);
+		}
 	}
 	};
 }
