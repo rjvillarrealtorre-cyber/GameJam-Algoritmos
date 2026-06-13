@@ -24,7 +24,7 @@ namespace GameJamAlgoritmos {
 			//
 			gr = CreateGraphics();
 			buffer = BufferedGraphicsManager::Current->Allocate(gr, ClientRectangle);
-			juego = new Juego();
+			juego = gcnew Juego();
 		}
 
 	protected:
@@ -50,7 +50,7 @@ namespace GameJamAlgoritmos {
 		/// </summary>
 		Graphics^ gr;
 		BufferedGraphics^ buffer;
-		Juego* juego;
+		Juego^ juego;
 
 	private: System::Windows::Forms::Timer^ timer1;
 		   
