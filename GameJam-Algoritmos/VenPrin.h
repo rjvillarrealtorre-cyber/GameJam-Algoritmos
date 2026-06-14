@@ -128,6 +128,9 @@ namespace GameJamAlgoritmos {
 		case Keys::Down:
 			juego->getNave()->setTAbajo(true);
 			break;
+		case Keys::Escape:
+			juego->setTeclaEsc(true);
+			break;
 		}
 	}
 	private: System::Void VenPrin_KeyUp(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
@@ -143,6 +146,9 @@ namespace GameJamAlgoritmos {
 			break;
 		case Keys::Down:
 			juego->getNave()->setTAbajo(false);
+			break;
+		case Keys::Escape:
+			juego->setTeclaEsc(false);
 			break;
 		}
 	}

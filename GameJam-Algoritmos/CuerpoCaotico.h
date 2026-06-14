@@ -13,15 +13,8 @@ protected:
 
 public:
 
-	CuerpoCaotico(
-		int px,
-		int py,
-		int dim,
-		int multi
-	) : Entidad(px, py, dim, multi)
-	{
-		Random^ r =
-			gcnew Random(Guid::NewGuid().GetHashCode());
+	CuerpoCaotico(int px, int py, int dim, int multi) : Entidad(px, py, dim, multi) {
+		Random^ r = gcnew Random(Guid::NewGuid().GetHashCode());
 
 		// Velocidades aleatorias
 		dxO = r->Next(3, 13);

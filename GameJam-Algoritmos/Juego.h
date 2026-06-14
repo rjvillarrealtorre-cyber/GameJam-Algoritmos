@@ -13,10 +13,53 @@ private:
 	array<Nivel^>^ niveles;
 	int nivelActual;
 
+	bool teclaEsc;
+	bool puedeCambiarNivel;
+	bool adicionFinal;
+
 	float multiplicadorGlobal;
 public:
+	void buildNivel1() {
+		niveles[0] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl1.jpg"), gcnew Bitmap("recursos\\tableta.jpg"), false);
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 21, 70, 4.0f, 5, Brushes::Blue, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 27, 115, 3.0f, 4, Brushes::Khaki, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 35, 160, 2.3f, 3, Brushes::DeepSkyBlue, TIERRA));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 31, 205, 1.8f, 2, Brushes::IndianRed, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 58, 260, 1.2f, 1, Brushes::Beige, SATURNO));
+
+		niveles[0]->getCinematica()->agregarLinea("¡NIVEL 1 COMPLETO! Recarguemos combustible...");
+		niveles[0]->getCinematica()->agregarLinea("¡Espera! ¿Qué es eso que se acerca?");
+		niveles[0]->getCinematica()->agregarLinea("Es un... ¿Es lo que pienso que es? Un...");
+		niveles[0]->getCinematica()->agregarLinea("¡Un agujero negro!");
+		niveles[0]->getCinematica()->agregarLinea("CONTINUARÁ...");
+		niveles[0]->getCinematica()->agregarLinea("");
+		niveles[0]->getCinematica()->agregarLinea("[PRESIONE ESC PARA CONTINUAR]");
+
+	}
+
+	void buildNivel2() {
+		niveles[1] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl2.jpg"), gcnew Bitmap("recursos\\tableta.jpg"), true);
+
+		niveles[1]->getCinematica()->agregarLinea("¡NIVEL 2 COMPLETADO! ¡Hemos logrado escapar");
+		niveles[1]->getCinematica()->agregarLinea("de la Galaxia Nebulosa del Khaos! ¡Y por");
+		niveles[1]->getCinematica()->agregarLinea("los pelos! ¡Te mereces una ovación!");
+		niveles[1]->getCinematica()->agregarLinea("¡Hurra!");
+		niveles[1]->getCinematica()->agregarLinea("");
+
+		// inicia con 8 figuritas
+		for (int i = 0; i < 8; i++) {
+			Random^ rx = gcnew Random();
+			Random^ ry = gcnew Random();
+			Random^ rd = gcnew Random();
+			niveles[1]->getCC()->Add(gcnew CuerpoCaoticoSimple(rx->Next(1, 1024), ry->Next(1, 576), rd->Next(40, 70), 1));
+		}
+	}
+
 	Juego() {
 		nivelActual = 0;
+		teclaEsc = false;
+		puedeCambiarNivel = false;
+		adicionFinal = false;
 		fuente = gcnew Fuente();
 		manejoVel = gcnew Bitmap("recursos\\manejoVelocidad.png");
 		multiplicadorGlobal = 1;
@@ -27,21 +70,9 @@ public:
 		// ---------- Inicializar nivel ---------
 		niveles = gcnew array<Nivel^>(2);
 		//Nivel 1
-		niveles[0] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl1.jpg"), false);
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 21,  70, 4.0f, 5, Brushes::Blue, COMUN));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 27, 115, 3.0f, 4, Brushes::Khaki, COMUN));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 35, 160, 2.3f, 3, Brushes::DeepSkyBlue, TIERRA));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 31, 205, 1.8f, 2, Brushes::IndianRed, COMUN));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 58, 260, 1.2f, 1, Brushes::Beige, SATURNO));
+		buildNivel1();
 		//Nivel 2
-		niveles[1] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl2.jpg"), true);
-		// inicia con 8 figuritas
-		for (int i = 0; i < 8; i++) {
-			Random^ rx = gcnew Random();
-			Random^ ry = gcnew Random();
-			Random^ rd = gcnew Random();
-			niveles[1]->getCC()->Add(gcnew CuerpoCaoticoSimple(rx->Next(1, 1024), ry->Next(1, 576), rd->Next(40, 70), 1));
-		}
+		buildNivel2();
 	}
 
 	~Juego() {
@@ -73,6 +104,55 @@ public:
 		//Planetas
 		for each (Planeta ^ p in niveles[nivelActual]->getSistemaSolar()->getPlanetas())
 			p->cambioVelocidad(multiplicadorGlobal);
+	}
+
+	void manejarCambioNivel(Graphics^ gr, Font^ fuente) {
+		if (!niveles[nivelActual]->getCinematica()->getEnCinematica()) return;
+
+		if (nivelActual == 1 && !adicionFinal) {
+			int contadorTotal = niveles[0]->getContador() + niveles[1]->getContador();
+			int segundos = static_cast<int>((CONVERSOR_SEG * contadorTotal)) % 60;
+			int minutos = (CONVERSOR_SEG * contadorTotal) / 60;
+			String^ segMostrar = segundos < 10 ? "0" + segundos : "" + segundos;
+			String^ minMostrar = minutos < 10 ? "0" + minutos : "" + minutos;
+
+			String^ Tiempo = "Tiempo Total: " + minMostrar + ":" + segMostrar;
+			niveles[1]->getCinematica()->agregarLinea(Tiempo);
+
+			adicionFinal = true;
+		}
+
+		niveles[nivelActual]->getCinematica()->mostrarCinematica(gr, fuente, teclaEsc);
+		puedeCambiarNivel = niveles[nivelActual]->getCinematica()->getFinalizada();
+
+		if (!puedeCambiarNivel) return;
+
+		nave->setVida(100); nave->setEnergia(100);
+		if (nivelActual == 0) {
+			nivelActual++;
+			nave->setX(30);
+			nave->setY(490);
+			manejarVelocidades(0);
+
+			puedeCambiarNivel = false;
+		}
+	}
+
+	void manejarVentanaDerrota(Graphics^ gr, Font^ fuente) {
+		if (!niveles[nivelActual]->getVenDerrota()->getEnCinematica()) return;
+
+		niveles[nivelActual]->getVenDerrota()->mostrarCinematica(gr, fuente, teclaEsc);
+		puedeCambiarNivel = niveles[nivelActual]->getVenDerrota()->getFinalizada();
+
+		if (!puedeCambiarNivel) return;
+
+		nave->setVida(100); nave->setEnergia(100);
+		niveles[nivelActual]->~Nivel();
+		delete niveles[nivelActual];
+		if (nivelActual == 0) buildNivel1();
+		else if (nivelActual == 1) buildNivel2();
+
+		puedeCambiarNivel = false;
 	}
 
 	void dibujarMultiplicador(Graphics^ gr) {
@@ -114,12 +194,22 @@ public:
 	}
 
 	void manejarBuclePrincipal(Graphics^ gr) {
+		//Cinematica
+		manejarVentanaDerrota(gr, fuente->getFuenteFinal());
+		if (niveles[nivelActual]->getVenDerrota()->getEnCinematica()) return;
+		manejarCambioNivel(gr, fuente->getFuenteFinal());
+		if (niveles[nivelActual]->getCinematica()->getEnCinematica()) return;
+
 		//Borrar (final)
 		gr->DrawImage(niveles[nivelActual]->getFondo(), 0, 0, 1024, 576);
 
 		//Nave
 		nave->mover();
 		nave->mostrar(gr);
+		
+		//Derrota
+		if (nave->getVida() <= 0 || nave->getEnergia() <= 0) 
+			niveles[nivelActual]->getVenDerrota()->setEnCinematica(true);
 
 		//Entidades
 		niveles[nivelActual]->manejarEntidades(gr, multiplicadorGlobal);
@@ -146,11 +236,10 @@ public:
 
 		//Condiciones
 		if (determinarVictoriaDerrota()) {
-			nivelActual++;
-			nave->setX(30);
-			nave->setY(490);
+			niveles[nivelActual]->getCinematica()->setEnCinematica(true);
 		}
 	}
 
 	Nave^ getNave() { return nave; }
+	void setTeclaEsc(bool p) { teclaEsc = p; }
 };
