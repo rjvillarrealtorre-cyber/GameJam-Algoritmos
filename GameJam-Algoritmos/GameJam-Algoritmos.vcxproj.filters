@@ -18,6 +18,9 @@
     <ClCompile Include="VenPrin.cpp">
       <Filter>Archivos de encabezado</Filter>
     </ClCompile>
+    <ClCompile Include="recursos\EscenarioMenu1.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="VenPrin.h">
@@ -60,6 +63,15 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Cinematica.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="recursos\EscenarioCreditos.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="recursos\EscenarioInstrucciones.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="recursos\EscenarioMenu1.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

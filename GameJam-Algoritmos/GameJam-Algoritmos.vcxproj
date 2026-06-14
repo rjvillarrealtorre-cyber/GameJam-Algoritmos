@@ -120,6 +120,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="recursos\EscenarioMenu1.cpp" />
     <ClCompile Include="VenPrin.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +135,9 @@
     <ClInclude Include="Nivel.h" />
     <ClInclude Include="PanelControl.h" />
     <ClInclude Include="Planeta.h" />
+    <ClInclude Include="recursos\EscenarioCreditos.h" />
+    <ClInclude Include="recursos\EscenarioInstrucciones.h" />
+    <ClInclude Include="recursos\EscenarioMenu1.h" />
     <ClInclude Include="SistemaSolar.h" />
     <ClInclude Include="Utilidades.h" />
     <ClInclude Include="VenPrin.h">

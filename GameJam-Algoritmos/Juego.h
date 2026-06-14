@@ -21,11 +21,11 @@ private:
 public:
 	void buildNivel1() {
 		niveles[0] = gcnew Nivel(gcnew Bitmap("recursos\\fondonvl1.jpg"), gcnew Bitmap("recursos\\tableta.jpg"), false);
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 21, 70, 4.0f, 5, Brushes::Blue, COMUN));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 27, 115, 3.0f, 4, Brushes::Khaki, COMUN));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 35, 160, 2.3f, 3, Brushes::DeepSkyBlue, TIERRA));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 31, 205, 1.8f, 2, Brushes::IndianRed, COMUN));
-		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta(0, 0, 58, 260, 1.2f, 1, Brushes::Beige, SATURNO));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta("Mercurio", 0, 0, 21, 70, 4.0f, 5, Brushes::Blue, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta("Venus", 0, 0, 27, 115, 3.0f, 4, Brushes::Khaki, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta("Tierra", 0, 0, 35, 160, 2.3f, 3, Brushes::DeepSkyBlue, TIERRA));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta("Marte", 0, 0, 31, 205, 1.8f, 2, Brushes::IndianRed, COMUN));
+		niveles[0]->getSistemaSolar()->agregarPlaneta(gcnew Planeta("Saturno", 0, 0, 58, 260, 1.2f, 1, Brushes::Beige, SATURNO));
 
 		niveles[0]->getCinematica()->agregarLinea("¡NIVEL 1 COMPLETO! Recarguemos combustible...");
 		niveles[0]->getCinematica()->agregarLinea("¡Espera! ¿Qué es eso que se acerca?");
@@ -55,8 +55,8 @@ public:
 		}
 	}
 
-	Juego() {
-		nivelActual = 0;
+	Juego(int na) {
+		nivelActual = na;
 		teclaEsc = false;
 		puedeCambiarNivel = false;
 		adicionFinal = false;
@@ -212,7 +212,7 @@ public:
 			niveles[nivelActual]->getVenDerrota()->setEnCinematica(true);
 
 		//Entidades
-		niveles[nivelActual]->manejarEntidades(gr, multiplicadorGlobal);
+		niveles[nivelActual]->manejarEntidades(gr, fuente->getFuenteFinal(), multiplicadorGlobal);
 
 		//Panel
 		pc->mostrarPanel(gr, nave, fuente->getFuenteFinal(), niveles[nivelActual]->getContador());

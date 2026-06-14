@@ -16,7 +16,7 @@ namespace GameJamAlgoritmos {
 	public ref class VenPrin : public System::Windows::Forms::Form
 	{
 	public:
-		VenPrin(void)
+		VenPrin(int nivelActual)
 		{
 			InitializeComponent();
 			//
@@ -24,7 +24,7 @@ namespace GameJamAlgoritmos {
 			//
 			gr = CreateGraphics();
 			buffer = BufferedGraphicsManager::Current->Allocate(gr, ClientRectangle);
-			juego = gcnew Juego();
+			juego = gcnew Juego(nivelActual);
 		}
 
 	protected:

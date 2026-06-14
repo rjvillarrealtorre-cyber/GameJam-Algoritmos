@@ -1,6 +1,6 @@
 #include "VenPrin.h"
 using namespace GameJamAlgoritmos;
 
-int main() {
-	Application::Run(gcnew VenPrin());
-}
+//int main() {
+//	Application::Run(gcnew VenPrin());
+//}

@@ -1,6 +1,9 @@
 #pragma once
+#include "../Fuente.h"
 #include "EscenarioInstrucciones.h"
 #include "EscenarioCreditos.h"
+
+#include "../VenPrin.h"
 
 namespace Project86 {
 
@@ -39,16 +42,12 @@ namespace Project86 {
 #pragma region Windows Form Designer generated code
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources =
-				(gcnew System::ComponentModel::ComponentResourceManager(EscenarioMenu1::typeid));
-
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->pictureBox1 = gcnew System::Windows::Forms::PictureBox();
+			this->pictureBox1->Image = gcnew Bitmap("recursos\\esMenu.png");			
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 
 			this->pictureBox1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pictureBox1->Image =
-				(cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(1024, 576);
@@ -72,6 +71,7 @@ namespace Project86 {
 #pragma endregion
 
 	private:
+		Fuente^ fuente = gcnew Fuente();
 
 		Label^ crearLabel(String^ texto, int x, int y, int ancho, int alto, int tam, Color color)
 		{
@@ -83,7 +83,7 @@ namespace Project86 {
 			lbl->ForeColor = color;
 			lbl->TextAlign = ContentAlignment::MiddleCenter;
 			lbl->AutoSize = false;
-			lbl->Font = gcnew Drawing::Font("Segoe UI", tam, FontStyle::Bold);
+			lbl->Font = fuente->getFuenteFinal();
 			return lbl;
 		}
 
@@ -98,7 +98,7 @@ namespace Project86 {
 			btn->FlatStyle = FlatStyle::Flat;
 			btn->FlatAppearance->BorderColor = borde;
 			btn->FlatAppearance->BorderSize = 2;
-			btn->Font = gcnew Drawing::Font("Segoe UI", 12, FontStyle::Bold);
+			btn->Font = fuente->getFuenteFinal();
 
 			btn->MouseEnter += gcnew EventHandler(this, &EscenarioMenu1::btn_MouseEnter);
 			btn->MouseLeave += gcnew EventHandler(this, &EscenarioMenu1::btn_MouseLeave);
@@ -185,12 +185,22 @@ namespace Project86 {
 
 		void btnNivel1_Click(Object^ sender, EventArgs^ e)
 		{
-			MessageBox::Show("Nivel 1 en desarrollo.");
+            this->Hide();
+		    // Crear y mostrar la ventana principal del juego
+		    GameJamAlgoritmos::VenPrin^ frm = gcnew GameJamAlgoritmos::VenPrin(0);
+		    frm->ShowDialog();
+			frm->Close();
+		    this->Show();
 		}
 
 		void btnNivel2_Click(Object^ sender, EventArgs^ e)
 		{
-			MessageBox::Show("Nivel 2 en desarrollo.");
+			this->Hide();
+			// Crear y mostrar la ventana principal del juego
+			GameJamAlgoritmos::VenPrin^ frm = gcnew GameJamAlgoritmos::VenPrin(1);
+			frm->ShowDialog();
+			frm->Close();
+			this->Show();
 		}
 
 		void btnInstrucciones_Click(Object^ sender, EventArgs^ e)

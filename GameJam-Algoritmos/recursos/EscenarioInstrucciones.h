@@ -40,8 +40,7 @@ namespace Project86 {
 			this->SuspendLayout();
 
 			this->pictureBox1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->pictureBox1->Image =
-				(cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Image = gcnew Bitmap("recursos\\esInstrucciones.png");
 			this->pictureBox1->Location = System::Drawing::Point(0, 0);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(1024, 576);
@@ -66,6 +65,8 @@ namespace Project86 {
 
 	private:
 
+		Fuente^ fuente = gcnew Fuente();
+
 		Label^ crearLabel(String^ texto, int x, int y, int ancho, int alto, int tam, Color color, bool negrita)
 		{
 			Label^ lbl = gcnew Label();
@@ -79,9 +80,9 @@ namespace Project86 {
 			lbl->AutoSize = false;
 
 			if (negrita)
-				lbl->Font = gcnew Drawing::Font("Segoe UI", tam, FontStyle::Bold);
+				lbl->Font = fuente->getFuenteFinal();
 			else
-				lbl->Font = gcnew Drawing::Font("Segoe UI", tam, FontStyle::Regular);
+				lbl->Font = fuente->getFuenteFinal();
 
 			return lbl;
 		}
@@ -135,7 +136,7 @@ namespace Project86 {
 			btnVolver->FlatStyle = FlatStyle::Flat;
 			btnVolver->FlatAppearance->BorderColor = cyan;
 			btnVolver->FlatAppearance->BorderSize = 2;
-			btnVolver->Font = gcnew Drawing::Font("Segoe UI", 10, FontStyle::Bold);
+			btnVolver->Font = fuente->getFuenteFinal();
 
 			btnVolver->Click += gcnew EventHandler(this, &EscenarioInstrucciones::btnVolver_Click);
 			btnVolver->MouseEnter += gcnew EventHandler(this, &EscenarioInstrucciones::btnVolver_MouseEnter);

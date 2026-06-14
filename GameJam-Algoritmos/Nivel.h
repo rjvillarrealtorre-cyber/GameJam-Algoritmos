@@ -90,9 +90,9 @@ public:
 
 	}
 
-	void manejarEntidades(Graphics^ gr, int multiplicadorGlobal) {
+	void manejarEntidades(Graphics^ gr, Font^ fuente, int multiplicadorGlobal) {
 		manejarCC(gr, multiplicadorGlobal);
-		ss->manejarSistemaSolar(gr, multiplicadorGlobal, caotico);
+		ss->manejarSistemaSolar(gr, fuente, multiplicadorGlobal, caotico);
 	}
 
 	void aumentarContadorAsteroide() { contadorAsteroide++; }
