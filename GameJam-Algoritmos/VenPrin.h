@@ -45,6 +45,7 @@ namespace GameJamAlgoritmos {
 			delete juego;
 
 			variablesonido->Stop();
+			delete variablesonido;
 		}
 	private: System::ComponentModel::IContainer^ components;
 	protected:

@@ -12,10 +12,13 @@ namespace Project86 {
 	using namespace System::Windows::Forms;
 	using namespace System::Drawing;
 	using namespace System::Drawing::Drawing2D;
+	using namespace System::Media;
 
 	public ref class EscenarioMenu1 : public System::Windows::Forms::Form
 	{
 	public:
+		SoundPlayer^ musicaMenu = gcnew SoundPlayer("recursos\\menu.wav");
+
 		EscenarioMenu1(void)
 		{
 			InitializeComponent();
@@ -33,6 +36,8 @@ namespace Project86 {
 			{
 				delete components;
 			}
+			musicaMenu->Stop();
+			delete musicaMenu;
 		}
 
 	private:
@@ -152,6 +157,8 @@ namespace Project86 {
 
 		void crearMenu()
 		{
+			musicaMenu->PlayLooping();
+
 			Color cyan = Color::FromArgb(0, 245, 255);
 			Color morado = Color::FromArgb(160, 100, 255);
 			Color naranja = Color::FromArgb(255, 160, 40);
@@ -186,20 +193,24 @@ namespace Project86 {
 		void btnNivel1_Click(Object^ sender, EventArgs^ e)
 		{
             this->Hide();
+			musicaMenu->Stop();
 		    // Crear y mostrar la ventana principal del juego
 		    GameJamAlgoritmos::VenPrin^ frm = gcnew GameJamAlgoritmos::VenPrin(0);
 		    frm->ShowDialog();
 			frm->Close();
+			musicaMenu->PlayLooping();
 		    this->Show();
 		}
 
 		void btnNivel2_Click(Object^ sender, EventArgs^ e)
 		{
 			this->Hide();
+			musicaMenu->Stop();
 			// Crear y mostrar la ventana principal del juego
 			GameJamAlgoritmos::VenPrin^ frm = gcnew GameJamAlgoritmos::VenPrin(1);
 			frm->ShowDialog();
 			frm->Close();
+			musicaMenu->PlayLooping();
 			this->Show();
 		}
 
