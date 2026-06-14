@@ -173,6 +173,7 @@ public:
 
 	void manejarColisiones() {
 		for each(Entidad ^ cc in niveles[nivelActual]->getCC()) {
+			if (cc->esCuerpoCaotico()) continue;
 			if (!verificarColisiones(nave, cc)) continue;
 			if (nave->getInvulnerable()) continue;
 
