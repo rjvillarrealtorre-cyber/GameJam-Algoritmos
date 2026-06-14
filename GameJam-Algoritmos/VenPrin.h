@@ -9,6 +9,7 @@ namespace GameJamAlgoritmos {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Media;
 
 	/// <summary>
 	/// Resumen de VenPrin
@@ -16,6 +17,8 @@ namespace GameJamAlgoritmos {
 	public ref class VenPrin : public System::Windows::Forms::Form
 	{
 	public:
+		SoundPlayer^ variablesonido = gcnew SoundPlayer("recursos\\musica_juego.wav");
+
 		VenPrin(int nivelActual)
 		{
 			InitializeComponent();
@@ -40,6 +43,8 @@ namespace GameJamAlgoritmos {
 			delete gr;
 			delete buffer;
 			delete juego;
+
+			variablesonido->Stop();
 		}
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -87,6 +92,7 @@ namespace GameJamAlgoritmos {
 		}
 #pragma endregion
 	private: System::Void VenPrin_Load(System::Object^ sender, System::EventArgs^ e) {
+		variablesonido->PlayLooping();
 	}
 	private: System::Void timer1_Tick(System::Object^ sender, System::EventArgs^ e) {
 		juego->manejarBuclePrincipal(buffer->Graphics);

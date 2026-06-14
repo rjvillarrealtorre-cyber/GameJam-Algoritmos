@@ -48,8 +48,19 @@ public:
 				p->getRadioOrbita() * 2 );
 		}
 
-		// Sol
-		gr->FillEllipse(Brushes::Gold, solX - 25, solY - 25, 50, 50 );
+		// --------- Sol -----------
+		// Halo exterior
+		gr->FillEllipse( gcnew SolidBrush(Color::FromArgb(20, 255, 220, 0)), solX - 70, solY - 70, 140, 140 );
+
+		gr->FillEllipse( gcnew SolidBrush(Color::FromArgb(40, 255, 230, 50)), solX - 55, solY - 55, 110, 110 );
+
+		gr->FillEllipse( gcnew SolidBrush(Color::FromArgb(70, 255, 240, 100)), solX - 40, solY - 40, 80, 80 );
+
+		// Núcleo brillante
+		gr->FillEllipse( gcnew SolidBrush(Color::FromArgb(255, 255, 255, 180)), solX - 18, solY - 18, 36, 36 );
+
+		// Sol principal
+		gr->FillEllipse( Brushes::Gold, solX - 25, solY - 25, 50, 50 );
 
 		// Planetas
 		for each(Planeta ^ p in planetas) {

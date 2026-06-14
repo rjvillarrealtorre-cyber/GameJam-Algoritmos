@@ -4,6 +4,7 @@
 #include "Fuente.h"
 #include "PanelControl.h"
 
+
 ref class Juego {
 private:
 	PanelControl^ pc;
